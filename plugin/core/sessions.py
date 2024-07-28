@@ -965,6 +965,12 @@ class AbstractPlugin(metaclass=ABCMeta):
         return False
 
     @classmethod
+    def reevaluate_should_ignore(cls, view: sublime.View) -> bool:
+        """
+        """
+        return self.can_handle(view)
+
+    @classmethod
     def markdown_language_id_to_st_syntax_map(cls) -> MarkdownLangMap | None:
         """
         Override this method to tweak the syntax highlighting of code blocks in popups from your language server.
