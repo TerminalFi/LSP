@@ -47,6 +47,7 @@ import functools
 import json
 import sublime
 import threading
+from os import path
 
 
 if TYPE_CHECKING:
@@ -277,6 +278,10 @@ class WindowManager(Manager, WindowConfigChangeListener):
                 transport_cwd: str | None = cwd
             else:
                 transport_cwd = workspace_folders[0].path if workspace_folders else None
+
+            if path.exists(transport_cwd):
+                transport_cwd = None
+                
             transport_config = config.resolve_transport_config(variables)
             transport = create_transport(transport_config, transport_cwd, session)
             if plugin_class:
